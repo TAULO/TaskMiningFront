@@ -1,0 +1,50 @@
+import React, { useState } from 'react'
+import ButtonComponent from './ButtonComponent'
+import TaskListItem from './TaskListItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass, faSignature } from '@fortawesome/free-solid-svg-icons'
+
+
+export default function TasksListComponent( { tasksList, orderName, orderSteps, orderLongestTask, search, getTask }) {
+    
+    const [isOrderVisible, setOrderIsVisible] = useState(false)
+    
+    return (
+        <div className='w-full max-w-md'>
+            <div className='bg-white shadow-md rounded-lg px-2 py-2 mb-4'>
+                <div className='block text-gray-700 text-lg font-semibold py-2 px-2'>Total tasks ({tasksList.length || 0})</div>
+                <div className='flex items-center bg-gray-200 rounded-md'>
+                    <FontAwesomeIcon className='fill-current text-gray-500 w-4 h-4 ml-3 pr-2' icon={faMagnifyingGlass}></FontAwesomeIcon>
+                    <input className='w-full rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2' onChange={(e) => search(e)} placeholder='search'></input>
+                    <div  onMouseEnter={() => {setOrderIsVisible(true)}} onMouseLeave={() => {setOrderIsVisible(false)}}>
+                        <ButtonComponent text={"Sort"}></ButtonComponent>
+                        <div style={{display: isOrderVisible ? "flex" : "none"}} className="z-10 absolute">
+                            <ButtonComponent text="Name" onClick={orderName}></ButtonComponent>
+                            <ButtonComponent text="Steps" onClick={orderSteps}></ButtonComponent>
+                            <ButtonComponent text="Longest" onClick={orderLongestTask}></ButtonComponent>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex-grow border-t border-gray-400 mt-4"></div>
+                <div className='py-3 text-sm'>
+                    <div className='flex flex-col justify-start text-gray-700 rounded-md px-2 py-2 my-2 max-h-96 overflow-auto'>
+                        {tasksList.map((task, index) => {
+                            return (
+                            <div key={index} className='hover:bg-gray-200 hover:cursor-pointer' onClick={(e) => getTask(e)}> 
+                                {<TaskListItem index={index} task={task}></TaskListItem>}
+                            </div>
+                            )
+                        })}
+                    </div>
+                </div>
+                <div className='class="flex bg-gray-200 text-sm text-right py-2 px-3 -mx-2 -mb-2 rounded-b-lg'>
+                    <div className='flex items-center'>
+                        <FontAwesomeIcon className='fill-current text-gray-500 w-4 h-4 ml-3 pr-2' icon={faSignature}></FontAwesomeIcon>
+                        <input className='w-72 rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2' placeholder='name'></input>
+                        <ButtonComponent text={"Analyse all"}></ButtonComponent>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
