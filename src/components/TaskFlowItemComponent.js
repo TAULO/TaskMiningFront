@@ -13,7 +13,7 @@ export default function TaskFlowItemComponent({ data }) {
                 <div className='w-full border-t-2 border-gray-200 mt-2 text-gray-400 flex font-medium'>
                     <div className='mr-auto'>{data.data.time}  sec</div>
                     <div className='bg-gray-400 h-2 w-2 m-2 rounded-full'></div>
-                    <div className='ml-auto'>{data.data.ui}</div>
+                    <div className='ml-auto'>{data.data.ui.replace("_", " ").replace("_", " ")}</div>
                 </div>
             </div>
         </div>

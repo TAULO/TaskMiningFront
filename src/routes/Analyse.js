@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ButtonComponent from '../components/ButtonComponent'
 import TaskListComponent from '../components/TaskListComponent'
+import UIStatsComponent from '../components/UIStatsComponent'
 
 export default function Analyse() {
   const [tasks, setTasks] = useState([])
@@ -20,10 +21,7 @@ export default function Analyse() {
   }
 
   async function getAnalyse() {
-    // const res = await fetch("http://localhost:5104/api/tasks/analyse/data")
-    // const data = await res.json()
-
-    // console.log(data)
+    
   }
   
   return (

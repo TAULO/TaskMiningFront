@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function StatsComponent({ object, title }) {
+export default function StatsComponent({ object, taskCompletionTime, title, unit }) {
   return (
     <div className='inline-block align-bottom bg-white text-left overflow-hidden shadow-md rounded-lg mb-2'>
         <div className='bg-white p-7'>
@@ -11,8 +11,9 @@ export default function StatsComponent({ object, title }) {
                         return (
                             <div key={index} className="flex items-stretch">
                                 <div>{key}</div>
-                                <div className='flex-1 text-right'>{value} sec {value }</div>
-                            </div>
+                                <div className='flex-1 text-right'>{value} {unit} </div>
+                                <div className='ml-2 text-sm mt-2.5 opacity-50'>({Math.round(value / taskCompletionTime * 100)})%</div>
+                            </div> 
                         )
                     })}
                 </div>

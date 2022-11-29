@@ -3,6 +3,9 @@ import TaskHeaderComponent from './TaskHeaderComponent';
 import TaskFlowComponent from './TaskFlowComponent';
 import StatsComponent from './StatsComponent';
 import TasksListComponent from './TasksListComponent';
+import UIStatsComponent from './UIStatsComponent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMouse, faKeyboard } from '@fortawesome/free-solid-svg-icons';
 
 export default function TaskListComponent({ tasksList }) {
     const [indvTasks, setIndvTasks] = useState({})
@@ -10,9 +13,6 @@ export default function TaskListComponent({ tasksList }) {
 
     async function search(task) {
         const value = task.target.value.trim()
-        // const res = await fetch("http://localhost:5104/api/tasks/" + value)
-        // const data = await res.json()
-        // console.log(data)
     }
 
     async function getTask(task) {
@@ -46,13 +46,15 @@ export default function TaskListComponent({ tasksList }) {
         <div className='flex'>
             <TasksListComponent tasksList={tasksList} orderName={orderName} orderSteps={orderSteps} orderLongestTask={orderLongestTask} search={search} getTask={getTask}></TasksListComponent>
             <div>
-                <TaskHeaderComponent indvTask={indvTasks}></TaskHeaderComponent>
-                <TaskFlowComponent indvTask={indvTasks}></TaskFlowComponent>
+                <TaskHeaderComponent indvTask={indvTasks || {}}></TaskHeaderComponent>
+                <TaskFlowComponent indvTask={indvTasks || {}}></TaskFlowComponent>
             </div>
             <div className='flex flex-col flex-1'>
-                <StatsComponent object={indvTasks.timeSpentPrApplication} title="Time spent per application"></StatsComponent>
-                <StatsComponent object={indvTasks.individualTaskUserCount} indvTasks={indvTasks} title="Time a user have spent"></StatsComponent>
-                <StatsComponent indvTasks={indvTasks} title=""></StatsComponent>
+                <StatsComponent object={indvTasks?.timeSpentPrApplication} unit="sec" taskCompletionTime={indvTasks?.taskCompletionTimeSeconds} title="Time spent per application"></StatsComponent>
+                <StatsComponent object={indvTasks?.individualTaskUserCount} unit="steps" taskCompletionTime={indvTasks?.tasksCount}  title="User total individual steps"></StatsComponent>
+                {/* <UIStatsComponent object={indvTasks.individualTaskUserInteractionsCount["MOUSE_LEFT_CLICK" || ""] || {}} title="Mouse left click" totalUI={indvTasks.userInteractions?.length || 0} icon={<FontAwesomeIcon icon={faMouse}></FontAwesomeIcon>}></UIStatsComponent>
+                <UIStatsComponent object={indvTasks.individualTaskUserInteractionsCount["KEYBOARD_CLICK" || ""] || {}} title="Keyboard click" totalUI={indvTasks.userInteractions?.length || 0} icon={<FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>}></UIStatsComponent>
+                <UIStatsComponent object={indvTasks.individualTaskUserInteractionsCount["KEYBOARD_SEND_KEYS" || ""] || {}} title="Keyboard send keys" totalUI={indvTasks.userInteractions?.length || 0} icon={<FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>}></UIStatsComponent> */}
             </div>
         </div>
     )
