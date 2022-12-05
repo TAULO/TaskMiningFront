@@ -14,8 +14,7 @@ export default function StatsComponent({ object, taskCompletionTime, title, unit
                                 <div className='flex-1 text-right'>{value} {unit} </div>
                                 <div className='ml-2 text-sm mt-2.5 opacity-50'>({Math.round(value / taskCompletionTime * 100)})%</div>
                             </div> 
-                        )
-                    })}
+                    )})}
                 </div>
             </div>
         </div>

@@ -4,8 +4,6 @@ import TaskFlowComponent from './TaskFlowComponent';
 import StatsComponent from './StatsComponent';
 import TasksListComponent from './TasksListComponent';
 import UIStatsComponent from './UIStatsComponent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMouse, faKeyboard } from '@fortawesome/free-solid-svg-icons';
 
 export default function TaskListComponent({ tasksList }) {
     const [indvTasks, setIndvTasks] = useState({})
@@ -41,9 +39,8 @@ export default function TaskListComponent({ tasksList }) {
         setTasks(tasksList.sort((a, b) => parseInt(a.taskCompletionTimeSeconds) - parseInt(b.taskCompletionTimeSeconds)).reverse())
     }
 
-
     return (
-        <div className='flex'>
+        <div className='flex border-b'>
             <TasksListComponent tasksList={tasksList} orderName={orderName} orderSteps={orderSteps} orderLongestTask={orderLongestTask} search={search} getTask={getTask}></TasksListComponent>
             <div>
                 <TaskHeaderComponent indvTask={indvTasks || {}}></TaskHeaderComponent>
@@ -52,9 +49,7 @@ export default function TaskListComponent({ tasksList }) {
             <div className='flex flex-col flex-1'>
                 <StatsComponent object={indvTasks?.timeSpentPrApplication} unit="sec" taskCompletionTime={indvTasks?.taskCompletionTimeSeconds} title="Time spent per application"></StatsComponent>
                 <StatsComponent object={indvTasks?.individualTaskUserCount} unit="steps" taskCompletionTime={indvTasks?.tasksCount}  title="User total individual steps"></StatsComponent>
-                {/* <UIStatsComponent object={indvTasks.individualTaskUserInteractionsCount["MOUSE_LEFT_CLICK" || ""] || {}} title="Mouse left click" totalUI={indvTasks.userInteractions?.length || 0} icon={<FontAwesomeIcon icon={faMouse}></FontAwesomeIcon>}></UIStatsComponent>
-                <UIStatsComponent object={indvTasks.individualTaskUserInteractionsCount["KEYBOARD_CLICK" || ""] || {}} title="Keyboard click" totalUI={indvTasks.userInteractions?.length || 0} icon={<FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>}></UIStatsComponent>
-                <UIStatsComponent object={indvTasks.individualTaskUserInteractionsCount["KEYBOARD_SEND_KEYS" || ""] || {}} title="Keyboard send keys" totalUI={indvTasks.userInteractions?.length || 0} icon={<FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon>}></UIStatsComponent> */}
+                <UIStatsComponent object={indvTasks?.individualTaskUserInteractionsCount} indvTask={indvTasks}></UIStatsComponent>
             </div>
         </div>
     )

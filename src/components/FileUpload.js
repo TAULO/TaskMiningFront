@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UploadFilesComponent from './UploadFilesComponent';
 import FileTasksList from './FileTasksList';
 import SpinnerComponent from './SpinnerComponent';
+import useFetch from '../Hooks/useFetch';
 
 function FileUpload() {
     const [filesArr, setFilesArr] = useState([])
@@ -41,19 +42,16 @@ function FileUpload() {
 
     function deleteFile(file) {
         // const id = file.nextSibling.innerHTML
-        console.log(file)
+        // console.log(file)
         // if (id !== null) {
         //     setFilesArr(filesArr.filter(files => files.id.toString() !== id))
         // }
     }
 
-    function deleteAll() {
-        fetch(`http://localhost:5104/api/tasks/reset`, {
-                    mode:"no-cors",
-                    method: "GET",
-                })
-        .then(res => console.log("Request: ", res))
-        .then(() => setFilesArr([]))
+    function deleteAllFiles() {
+    //     useFetch("http://localhost:5104/api/tasks/reset", {mode: "no-cors", method: "GET"})
+    //     setFilesArr([])
+    // }
     }
 
     const promise = () => new Promise((resolve, reject) => {
@@ -93,13 +91,13 @@ function FileUpload() {
         navigate("/analyse")
     })
 
-
     return (
         <div className='flex flex-1 justify-center align-middle space-x-40 mt-72'>
             {isLoading ? <SpinnerComponent></SpinnerComponent> : null}
-            <FileTasksList tasksList={filesArr} search={search} deleteFile={(e) => deleteFile(e)} previewFile={(e) => previewFile(e.target)} deleteAll={deleteAll} analyseAll={promise}></FileTasksList>
+            <FileTasksList tasksList={filesArr} search={search} deleteFile={(e) => deleteFile(e)} previewFile={(e) => previewFile(e.target)} deleteAll={deleteAllFiles} analyseAll={promise}></FileTasksList>
             <UploadFilesComponent readFiles={readFiles}></UploadFilesComponent>
         </div>
-    );
+    )
   }
-  export default FileUpload;
+
+export default FileUpload;

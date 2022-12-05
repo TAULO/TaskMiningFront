@@ -34,6 +34,7 @@ export default function Flow({ indvTask }) {
           animated: true
         })
     }
+    
   }
   loadFlowChart()
 
@@ -45,7 +46,7 @@ export default function Flow({ indvTask }) {
   };
 
   return (
-      <ReactFlow className='border'
+      <ReactFlow className='border z-50'
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
